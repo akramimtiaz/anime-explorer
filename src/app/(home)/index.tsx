@@ -11,7 +11,7 @@ export default function Index() {
       }}
     >
       <Text>Edit app/index.tsx to edit this screen.</Text>
-      <Link href="/10" asChild>
+      <Link href="/10" push  asChild>
         <Text>Go to details screen</Text>
       </Link>
     </View>

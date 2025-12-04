@@ -7,7 +7,7 @@ export default function RootLayout() {
     <Fragment>
       <StatusBar style="auto" />
       <Tabs>
-        <Tabs.Screen name="(home)" options={{ title: "Home" }} />
+        <Tabs.Screen name="(home)" options={{ headerShown: false, title: "Home" }} />
         <Tabs.Screen name="favourites" options={{ title: "Favourites" }} />
       </Tabs>
     </Fragment>
