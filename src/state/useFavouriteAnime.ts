@@ -10,7 +10,6 @@ type FavouriteAnimeStore = {
   loading: boolean;
   list: Anime[];
   error: Error | null;
-  didTryLoad: boolean;
 
   loadFavourites: () => Promise<void>;
   addFavourite: (anime: Anime) => Promise<void>;
@@ -22,7 +21,6 @@ export const useFavouriteAnimeStore = create<FavouriteAnimeStore>(
     loading: false,
     list: [],
     error: null,
-    didTryLoad: false,
 
     loadFavourites: async () => {
       if (get().loading) return;
