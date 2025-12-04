@@ -8,7 +8,6 @@ export default function Index() {
   const loading = useFetchAnimeListStore((s) => s.loading);
   const list = useFetchAnimeListStore((s) => s.list);
   const error = useFetchAnimeListStore((s) => s.error);
-  const pagination = useFetchAnimeListStore((s) => s.pagination);
   const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
 
   useEffect(() => {
@@ -34,10 +33,11 @@ export default function Index() {
   return (
     <View style={{ flex: 1, }}>
       <FlashList
-        data={list ?? []}
         masonry
+        data={list}
         numColumns={2}
         renderItem={({ item }) => <AnimeListCard anime={item} />}
+        keyExtractor={(item) => String(item.mal_id)}
         onEndReachedThreshold={0.5}
         onEndReached={fetchNextPage}
       />
