@@ -8,7 +8,7 @@ type FetchAnimeListStore = {
   error: Error | null;
   pagination: FetchAnimeListResponse["pagination"] | null;
   list: FetchAnimeListResponse["data"];
-  fetch: (page: number) => Promise<void>;
+  fetchNextPage: () => Promise<void>;
 };
 
 export const useFetchAnimeListStore = create<FetchAnimeListStore>(
@@ -19,7 +19,10 @@ export const useFetchAnimeListStore = create<FetchAnimeListStore>(
     error: null,
     list: [],
 
-    fetch: async () => {
+    fetchNextPage: async () => {
+      if (get().loading) return;
+      if (get().pagination?.has_next_page === false) return;
+
       try {
         set(() => ({ loading: true }));
         const response = await fetchAnimeList(get().currentPage + 1);
@@ -27,7 +30,7 @@ export const useFetchAnimeListStore = create<FetchAnimeListStore>(
         set((state) => ({
           currentPage: state.currentPage + 1,
           pagination: response.pagination,
-          list: response.data,
+          list: [...state.list, ...response.data],
         }));
       } catch (err) {
         console.error(err);

@@ -1,22 +1,21 @@
-import { fetchAnimeList } from "@/src/api/jikan";
 import AnimeListCard from "@/src/components/AnimeListCard";
-import { FetchAnimeByIdResponse as Anime } from "@/src/types/jikan";
+import { useFetchAnimeListStore } from "@/src/state/useFetchAnimeList";
 import { FlashList } from '@shopify/flash-list';
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { Text, View } from "react-native";
 
 export default function Index() {
-  const [data, setData] = useState<Anime[]>([]);
+  const loading = useFetchAnimeListStore((s) => s.loading);
+  const list = useFetchAnimeListStore((s) => s.list);
+  const error = useFetchAnimeListStore((s) => s.error);
+  const pagination = useFetchAnimeListStore((s) => s.pagination);
+  const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
 
   useEffect(() => {
-    const load = async () => {
-      const _data = await fetchAnimeList();
-      setData(_data.data);
-    };
-    load();
-  }, []);
+    fetchNextPage();
+  }, [])
 
-  if (!data) {
+  if (loading && !list.length) {
     return (
       <View style={{ flex: 1 }}>
         <Text>Loading...</Text>
@@ -24,13 +23,23 @@ export default function Index() {
     )
   }
 
+  if (error) {
+    return (
+      <View style={{ flex: 1 }}>
+        <Text>Error...</Text>
+      </View>
+    )
+  }
+
   return (
     <View style={{ flex: 1, }}>
       <FlashList
-        data={data ?? []}
+        data={list ?? []}
         masonry
         numColumns={2}
         renderItem={({ item }) => <AnimeListCard anime={item} />}
+        onEndReachedThreshold={0.5}
+        onEndReached={fetchNextPage}
       />
     </View>
   );

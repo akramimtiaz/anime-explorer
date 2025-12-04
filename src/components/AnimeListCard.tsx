@@ -15,6 +15,8 @@ export default function AnimeListCard({ anime }: AnimeListCardProps) {
         <Link href={`/${anime.mal_id}`} push asChild>
           <Pressable>
             <Image
+              cachePolicy="memory-disk"
+              recyclingKey={String(anime.mal_id)}
               style={{
                 height: 300,
                 width: "auto",
