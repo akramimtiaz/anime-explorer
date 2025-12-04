@@ -6,7 +6,7 @@ export default function Layout() {
     <Fragment>
       <Stack>
         <Stack.Screen name="index" options={{ title: 'Home'}} />
-        <Stack.Screen name="[id]" options={{ title: 'Details'}}  />
+        <Stack.Screen name="[id]" options={{ animation: "fade", title: 'Details'}}  />
       </Stack>
     </Fragment>
   );
