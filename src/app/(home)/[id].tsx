@@ -1,9 +1,14 @@
+import Typography from "@/src/components/shared/Typography";
+import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
 import { Image } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
-import { Text, View } from "react-native";
+import { Button, ScrollView } from "react-native";
 
 export default function Details() {
   const router = useRouter();
+  const isFavourite = useFavouriteAnimeStore((s) => s.isFavourite);
+  const loading = useFavouriteAnimeStore((s) => s.loading);
+  const toggleFavourite = useFavouriteAnimeStore((s) => s.toggleFavourite);
   const { animeJson } = useLocalSearchParams();
 
   const anime = JSON.parse(animeJson as string);
@@ -14,7 +19,7 @@ export default function Details() {
   }
 
   return (
-    <View>
+    <ScrollView>
       <Stack.Screen options={{ title: anime.title }} />
       <Image
         style={{
@@ -24,7 +29,14 @@ export default function Details() {
         source={anime.images.webp.large_image_url}
         contentFit="cover"
       />
-      <Text>Id Screen</Text>
-    </View>
+      <Typography>{anime.title}</Typography>
+      <Typography>{anime.synopsis}</Typography>
+      <Typography>{anime.score}</Typography>
+      <Button
+        title={isFavourite(String(anime.mal_id)) ? 'Remove' : 'Add'}
+        onPress={() => toggleFavourite(anime)}
+        disabled={loading}
+      />
+    </ScrollView>
   );
 }

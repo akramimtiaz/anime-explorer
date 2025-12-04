@@ -1,4 +1,5 @@
 import AnimeListCard from "@/src/components/AnimeListCard";
+import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
 import { useFetchAnimeListStore } from "@/src/state/useFetchAnimeList";
 import { FlashList } from '@shopify/flash-list';
 import { useEffect } from "react";
@@ -9,9 +10,11 @@ export default function Index() {
   const list = useFetchAnimeListStore((s) => s.list);
   const error = useFetchAnimeListStore((s) => s.error);
   const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
+  const loadFavourites = useFavouriteAnimeStore((s) => s.loadFavourites);
 
   useEffect(() => {
     fetchNextPage();
+    loadFavourites();
   }, [])
 
   if (loading && !list.length) {

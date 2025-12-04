@@ -1,21 +1,14 @@
 import { FlashList } from "@shopify/flash-list";
-import { useEffect } from "react";
 import { Text, View } from "react-native";
 import AnimeListCard from "../components/AnimeListCard";
 import { useFavouriteAnimeStore } from "../state/useFavouriteAnime";
 
 export default function Favourites() {
-  const loadFavourites = useFavouriteAnimeStore((s) => s.loadFavourites);
   const loading = useFavouriteAnimeStore((s) => s.loading);
-  const list = useFavouriteAnimeStore((s) => s.list);
+  const favourites = useFavouriteAnimeStore((s) => s.favourites);
   const error = useFavouriteAnimeStore((s) => s.error);
 
-  useEffect(() => {
-    loadFavourites();
-  }, []);
-
-
-  if (loading && !list.length) {
+  if (loading && !favourites) {
     return (
       <View style={{ flex: 1 }}>
         <Text>Loading...</Text>
@@ -35,7 +28,7 @@ export default function Favourites() {
     <View style={{ flex: 1, }}>
       <FlashList
         masonry
-        data={list}
+        data={Object.values(favourites)}
         numColumns={2}
         renderItem={({ item }) => <AnimeListCard anime={item} />}
         keyExtractor={(item) => String(item.mal_id)}
