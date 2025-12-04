@@ -1,5 +1,7 @@
 import AnimeListCard from "@/src/components/AnimeListCard";
+import GenreList from "@/src/components/GenreList";
 import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
+import { useFetchAnimeGenresStore } from "@/src/state/useFetchAnimeGenres";
 import { useFetchAnimeListStore } from "@/src/state/useFetchAnimeList";
 import { FlashList } from '@shopify/flash-list';
 import { useEffect } from "react";
@@ -11,10 +13,12 @@ export default function Index() {
   const error = useFetchAnimeListStore((s) => s.error);
   const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
   const loadFavourites = useFavouriteAnimeStore((s) => s.loadFavourites);
+  const fetchGenres = useFetchAnimeGenresStore((s) => s.fetchGenres);
 
   useEffect(() => {
     fetchNextPage();
     loadFavourites();
+    fetchGenres();
   }, [])
 
   if (loading && !list.length) {
@@ -35,6 +39,7 @@ export default function Index() {
 
   return (
     <View style={{ flex: 1, }}>
+      <GenreList />
       <FlashList
         masonry
         data={list}

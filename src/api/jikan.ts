@@ -8,17 +8,17 @@ const getUrl = (path: string, queryParams: object = {}) => {
 
   if (queryParams) {
     const params = Object.entries(queryParams)
-      .map(([key, value]) => key.concat("=", value));
+      .map(([key, value]) => key.concat("=", String(value)));
     url = url.concat("?", params.join('&'));
   }
 
   return url;
 };
 
-export async function fetchAnimeList(page: number = 1, limit: number = 20): Promise<FetchAnimeListResponse> {
+export async function fetchAnimeList(page: number = 1): Promise<FetchAnimeListResponse> {
     try {
-        const url = getUrl('/anime', { page, limit, order_by: "popularity", sfw: true });
-        console.log('URL', url);
+        let queryParams = { page, limit: 20, order_by: "popularity", sfw: true };
+        const url = getUrl('/anime', queryParams);
 
         const response = await fetch(url);
         const data = await response.json();
@@ -42,7 +42,7 @@ export async function fetchAnimeById(id: number): Promise<FetchAnimeByIdResponse
     }
 }
 
-export async function fetchAnimeGenres(): Promise<FetchAnimeGenresResponse> {
+export async function fetchAnimeGenres(): Promise<FetchAnimeGenresResponse[]> {
     try {    
         const response = await fetch(getUrl(`/genres/anime`));
         const data = await response.json();

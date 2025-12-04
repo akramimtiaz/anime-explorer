@@ -30,7 +30,7 @@ export const useFetchAnimeListStore = create<FetchAnimeListStore>(
         set((state) => ({
           currentPage: state.currentPage + 1,
           pagination: response.pagination,
-          list: [...state.list, ...response.data],
+          list: [...state.list, ...response?.data],
         }));
       } catch (err) {
         console.error(err);
