@@ -1,9 +1,10 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { create } from "zustand";
+import {
+    addFavourite,
+    getFavourites,
+    removeFavourite,
+} from "../api/favourites";
 import { FetchAnimeByIdResponse as Anime } from "../types/jikan";
-
-
-const STORAGE_KEY = "favourite-anime";
 
 type FavouriteAnimeStore = {
   loading: boolean;
@@ -25,62 +26,45 @@ export const useFavouriteAnimeStore = create<FavouriteAnimeStore>(
 
     loadFavourites: async () => {
       if (get().loading) return;
-    
+
       try {
         set(() => ({ loading: true }));
-        const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
-        const currList = (jsonValue != null ? JSON.parse(jsonValue) : []) as Anime[];
-
-        set(() => ({ list: currList, didTryLoad: true }));
+        const currList = await getFavourites();
+        set(() => ({ list: currList }));
       } catch (err) {
         console.error(err);
+        set(() => ({ error: err as unknown as Error }));
       } finally {
         set(() => ({ loading: false }));
       }
     },
     addFavourite: async (anime: Anime) => {
-        if (get().loading) return;
+      if (get().loading) return;
 
-        try {
-            set(() => ({ loading: true }));
-            let currList = get().list; 
-
-            if (!currList?.length && !get().didTryLoad) {
-                const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
-                currList = (jsonValue != null ? JSON.parse(jsonValue) : []) as Anime[];
-            }
-
-            const updatedList = [...currList, anime];
-
-            await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedList));
-            set(() => ({ list: updatedList }));
-        } catch (err) {
-            console.error(err);
-        } finally {
-            set(() => ({ loading: false }));
-        }
+      try {
+        set(() => ({ loading: true }));
+        const updatedList = await addFavourite(anime);
+        set(() => ({ list: updatedList }));
+      } catch (err) {
+        console.error(err);
+        set(() => ({ error: err as unknown as Error }));
+      } finally {
+        set(() => ({ loading: false }));
+      }
     },
     removeFavourite: async (anime: Anime) => {
-        if (get().loading) return;
+      if (get().loading) return;
 
-        try {
-            set(() => ({ loading: true }));
-            let currList = get().list; 
-
-            if (!currList?.length && !get().didTryLoad) {
-                const jsonValue = await AsyncStorage.getItem(STORAGE_KEY);
-                currList = (jsonValue != null ? JSON.parse(jsonValue) : []) as Anime[];
-            }
-
-            const updatedList = currList.filter(a => a.mal_id !== anime.mal_id);
-
-            await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedList));
-            set(() => ({ list: updatedList }));
-        } catch (err) {
-            console.error(err);
-        } finally {
-            set(() => ({ loading: false }));
-        }
+      try {
+        set(() => ({ loading: true }));
+        const updatedList = await removeFavourite(anime);
+        set(() => ({ list: updatedList }));
+      } catch (err) {
+        console.error(err);
+        set(() => ({ error: err as unknown as Error }));
+      } finally {
+        set(() => ({ loading: false }));
+      }
     },
   })
 );
