@@ -9,6 +9,7 @@ import { Text, View } from "react-native";
 
 export default function Index() {
   const loading = useFetchAnimeListStore((s) => s.loading);
+  const currentPage = useFetchAnimeListStore((s) => s.currentPage);
   const list = useFetchAnimeListStore((s) => s.list);
   const error = useFetchAnimeListStore((s) => s.error);
   const selectedGenre = useFetchAnimeGenresStore((s) => s.selectedGenre);
@@ -22,7 +23,7 @@ export default function Index() {
     fetchGenres();
   }, []);
 
-  if (loading) {
+  if (loading && !currentPage) {
     return (
       <View style={{ flex: 1 }}>
         <GenreList />
