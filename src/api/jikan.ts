@@ -6,7 +6,6 @@ import {
 
 const BASE_URL = "https://api.jikan.moe/v4";
 
-// can move this into it's own util function
 const getUrl = (path: string, queryParams: object = {}) => {
   let url = BASE_URL.concat(path);
 
