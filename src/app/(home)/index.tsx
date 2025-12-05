@@ -3,7 +3,7 @@ import GenreList from "@/src/components/GenreList";
 import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
 import { useFetchAnimeGenresStore } from "@/src/state/useFetchAnimeGenres";
 import { useFetchAnimeListStore } from "@/src/state/useFetchAnimeList";
-import { FlashList } from '@shopify/flash-list';
+import { FlashList } from "@shopify/flash-list";
 import { useEffect } from "react";
 import { Text, View } from "react-native";
 
@@ -20,14 +20,15 @@ export default function Index() {
     fetchNextPage();
     loadFavourites();
     fetchGenres();
-  }, [])
+  }, []);
 
   if (loading && !list.length) {
     return (
       <View style={{ flex: 1 }}>
+        <GenreList />
         <Text>Loading...</Text>
       </View>
-    )
+    );
   }
 
   if (error) {
@@ -35,11 +36,11 @@ export default function Index() {
       <View style={{ flex: 1 }}>
         <Text>Error...</Text>
       </View>
-    )
+    );
   }
 
   return (
-    <View style={{ flex: 1, }}>
+    <View style={{ flex: 1 }}>
       <GenreList />
       <FlashList
         masonry

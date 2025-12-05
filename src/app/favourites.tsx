@@ -13,7 +13,7 @@ export default function Favourites() {
       <View style={{ flex: 1 }}>
         <Text>Loading...</Text>
       </View>
-    )
+    );
   }
 
   if (error) {
@@ -21,11 +21,11 @@ export default function Favourites() {
       <View style={{ flex: 1 }}>
         <Text>Error...</Text>
       </View>
-    )
+    );
   }
 
   return (
-    <View style={{ flex: 1, }}>
+    <View style={{ flex: 1 }}>
       <FlashList
         masonry
         data={Object.values(favourites)}
@@ -35,5 +35,4 @@ export default function Favourites() {
       />
     </View>
   );
-};
-
+}

@@ -43,12 +43,12 @@ export const useFavouriteAnimeStore = create<FavouriteAnimeStore>(
       try {
         set(() => ({ loading: true }));
         const exists = !!get().favourites[String(anime.mal_id)];
-        
+
         let updatedFavs = {};
         if (!exists) {
-           updatedFavs = await addFavourite(anime);
+          updatedFavs = await addFavourite(anime);
         } else {
-           updatedFavs = await removeFavourite(anime);
+          updatedFavs = await removeFavourite(anime);
         }
 
         set(() => ({ favourites: updatedFavs }));
@@ -60,5 +60,5 @@ export const useFavouriteAnimeStore = create<FavouriteAnimeStore>(
       }
     },
     isFavourite: (id: string) => !!get().favourites[id],
-  })
+  }),
 );

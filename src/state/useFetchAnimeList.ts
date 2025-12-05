@@ -8,7 +8,7 @@ type FetchAnimeListStore = {
   error: Error | null;
   pagination: FetchAnimeListResponse["pagination"] | null;
   list: FetchAnimeListResponse["data"];
-  prevSelectedGenreId: number | null;
+  prevSelectedGenreId?: number;
   fetchNextPage: (genreId?: number) => Promise<void>;
 };
 
@@ -18,7 +18,7 @@ export const useFetchAnimeListStore = create<FetchAnimeListStore>(
     loading: false,
     pagination: null,
     error: null,
-    prevSelectedGenreId: null,
+    prevSelectedGenreId: undefined,
     list: [],
 
     fetchNextPage: async (genreId?: number) => {
@@ -31,7 +31,7 @@ export const useFetchAnimeListStore = create<FetchAnimeListStore>(
 
       try {
         set(() => ({ loading: true }));
-        set(() => ({ prevSelectedGenreId: genreId ?? null }));
+        set(() => ({ prevSelectedGenreId: genreId }));
         const response = await fetchAnimeList(get().currentPage + 1, genreId);
 
         set((state) => ({
@@ -46,5 +46,5 @@ export const useFetchAnimeListStore = create<FetchAnimeListStore>(
         set(() => ({ loading: false }));
       }
     },
-  })
+  }),
 );

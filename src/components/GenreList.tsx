@@ -18,11 +18,12 @@ function GenreItem({ genre }: { genre: Genre }) {
   const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
   return (
     <ViewGenreItem>
-      <Pressable onPress={async() => {
-        setSelectedGenre(String(genre.mal_id));
-        await fetchNextPage(genre.mal_id > 0 ? genre.mal_id : undefined);
-        console.log("What is going on!");
-      }}>
+      <Pressable
+        onPress={async () => {
+          setSelectedGenre(String(genre.mal_id));
+          await fetchNextPage(genre.mal_id > 0 ? genre.mal_id : undefined);
+        }}
+      >
         <Typography>{genre.name}</Typography>
       </Pressable>
     </ViewGenreItem>

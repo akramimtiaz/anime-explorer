@@ -1,7 +1,7 @@
 import Typography from "@/src/components/shared/Typography";
 import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
 import { Image } from "expo-image";
-import { Stack, useLocalSearchParams, useRouter } from 'expo-router';
+import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Button, ScrollView } from "react-native";
 
 export default function Details() {
@@ -33,9 +33,14 @@ export default function Details() {
       <Typography>{anime.synopsis}</Typography>
       <Typography>{anime.score}</Typography>
       <Button
-        title={isFavourite(String(anime.mal_id)) ? 'Remove' : 'Add'}
+        title={
+          isFavourite(String(anime.mal_id))
+            ? "Remove from Favourites"
+            : "Add to Favourites"
+        }
         onPress={() => toggleFavourite(anime)}
         disabled={loading}
+        color="blue"
       />
     </ScrollView>
   );
