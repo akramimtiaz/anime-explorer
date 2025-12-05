@@ -11,6 +11,7 @@ export default function Index() {
   const loading = useFetchAnimeListStore((s) => s.loading);
   const list = useFetchAnimeListStore((s) => s.list);
   const error = useFetchAnimeListStore((s) => s.error);
+  const selectedGenre = useFetchAnimeGenresStore((s) => s.selectedGenre);
   const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
   const loadFavourites = useFavouriteAnimeStore((s) => s.loadFavourites);
   const fetchGenres = useFetchAnimeGenresStore((s) => s.fetchGenres);
@@ -47,7 +48,7 @@ export default function Index() {
         renderItem={({ item }) => <AnimeListCard anime={item} />}
         keyExtractor={(item) => String(item.mal_id)}
         onEndReachedThreshold={0.5}
-        onEndReached={fetchNextPage}
+        onEndReached={() => fetchNextPage(selectedGenre?.mal_id)}
       />
     </View>
   );

@@ -15,11 +15,12 @@ const getUrl = (path: string, queryParams: object = {}) => {
   return url;
 };
 
-export async function fetchAnimeList(page: number = 1): Promise<FetchAnimeListResponse> {
+export async function fetchAnimeList(page: number = 1, genreId?: number): Promise<FetchAnimeListResponse> {
     try {
-        let queryParams = { page, limit: 20, order_by: "popularity", sfw: true };
+        const baseQueryParams = { page, limit: 20, order_by: "popularity", sfw: true };
+        const queryParams = genreId ? { ...baseQueryParams , genres: genreId } : baseQueryParams;
         const url = getUrl('/anime', queryParams);
-
+        console.log(url);
         const response = await fetch(url);
         const data = await response.json();
 

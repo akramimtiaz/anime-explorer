@@ -2,6 +2,7 @@ import { FlashList } from "@shopify/flash-list";
 import { Pressable } from "react-native";
 import styled from "styled-components/native";
 import { useFetchAnimeGenresStore } from "../state/useFetchAnimeGenres";
+import { useFetchAnimeListStore } from "../state/useFetchAnimeList";
 import { FetchAnimeGenresResponse as Genre } from "../types/jikan";
 import Typography from "./shared/Typography";
 
@@ -14,9 +15,14 @@ const NoGenre: Genre = {
 
 function GenreItem({ genre }: { genre: Genre }) {
   const setSelectedGenre = useFetchAnimeGenresStore((s) => s.setSelectedGenre);
+  const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
   return (
     <ViewGenreItem>
-      <Pressable onPress={() => setSelectedGenre(String(genre.mal_id))}>
+      <Pressable onPress={async() => {
+        setSelectedGenre(String(genre.mal_id));
+        await fetchNextPage(genre.mal_id > 0 ? genre.mal_id : undefined);
+        console.log("What is going on!");
+      }}>
         <Typography>{genre.name}</Typography>
       </Pressable>
     </ViewGenreItem>
