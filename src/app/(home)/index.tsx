@@ -22,7 +22,7 @@ export default function Index() {
     fetchGenres();
   }, []);
 
-  if (loading && !list.length) {
+  if (loading) {
     return (
       <View style={{ flex: 1 }}>
         <GenreList />
