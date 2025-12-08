@@ -6,7 +6,7 @@ import { Button, ScrollView } from "react-native";
 
 export default function Details() {
   const router = useRouter();
-  const isFavourite = useFavouriteStore((s) => s.isFavourite);
+  const favourites = useFavouriteStore(s => s.favourites);
   const toggleFavourite = useFavouriteStore((s) => s.toggleFavourite);
   const { animeJson } = useLocalSearchParams();
 
@@ -33,7 +33,7 @@ export default function Details() {
       <Typography>{anime.score}</Typography>
       <Button
         title={
-          isFavourite(anime.mal_id)
+          favourites.hasOwnProperty(anime.mal_id)
             ? "Remove from Favourites"
             : "Add to Favourites"
         }

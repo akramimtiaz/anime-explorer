@@ -11,7 +11,6 @@ type FavouriteStore = {
 
   loadFavourites: () => Promise<void>;
   toggleFavourite: (anime: Anime) => Promise<void>;
-  isFavourite: (animeId: number) => boolean;
 };
 
 export const useFavouriteStore = create<FavouriteStore>((set, get) => ({
@@ -33,5 +32,4 @@ export const useFavouriteStore = create<FavouriteStore>((set, get) => ({
 
     set(() => ({ favourites: updatedFavs }));
   },
-  isFavourite: (animeId: number) => get().favourites.hasOwnProperty(animeId),
 }));
