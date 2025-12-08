@@ -21,7 +21,7 @@ function GenreItem({ genre }: { genre: Genre }) {
       <Pressable
         onPress={async () => {
           setSelectedGenre(String(genre.mal_id));
-          await fetchNextPage(genre.mal_id > 0 ? genre.mal_id : undefined);
+          await fetchNextPage();
         }}
       >
         <Typography>{genre.name}</Typography>
