@@ -28,7 +28,7 @@ export const useAnimeStore = create<AnimeStore>((set, get) => ({
         set(() => ({ currentGenreId: genreId }));
       }
 
-      const response = await fetchAnimesByGenre(1, genreId);
+      const response = await fetchAnimesByGenre(genreId, 1);
       set(() => ({
         currentPage: 1,
         pagination: response.pagination,
@@ -42,8 +42,8 @@ export const useAnimeStore = create<AnimeStore>((set, get) => ({
     if (get().pagination?.has_next_page === false) return;
 
     const response = await fetchAnimesByGenre(
+      get().currentGenreId,
       get().currentPage + 1,
-      get().currentGenreId
     );
 
     set((state) => ({
