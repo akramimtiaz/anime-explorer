@@ -28,6 +28,8 @@ export const useAnimeGenresStore = create<AnimeGenresStore>(
       return fetchedGenres;
     },
     loadGenres: async () => {
+      if (Object.keys(get().genres).length) return;
+  
       const genresArray = await get().getGenres();
       const genres: Record<string, AnimeGenre> = {};
  
