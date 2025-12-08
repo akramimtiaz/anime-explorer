@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import constants from "expo-constants";
+import { APP_NAME } from "../constants";
 import { FetchAnimeByIdResponse as Anime } from "../types/jikan";
 
-const APP_NAME = constants.expoConfig?.name ?? "anime-explorer";
 const STORAGE_KEY = `${APP_NAME}/favourites`;
 
 export async function getFavouritesFromStorage(): Promise<

@@ -1,8 +1,7 @@
 import AsyncStorage from "@react-native-async-storage/async-storage";
-import constants from "expo-constants";
+import { APP_NAME } from "../constants";
 import { FetchAnimeGenresResponse as AnimeGenre } from "../types/jikan";
 
-const APP_NAME = constants.expoConfig?.name ?? "anime-explorer";
 const STORAGE_KEY = `${APP_NAME}/anime-genres`;
 
 export async function getAnimeGenresFromStorage(): Promise<AnimeGenre[]> {
