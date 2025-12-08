@@ -6,8 +6,8 @@ import { FetchAnimeGenresResponse as AnimeGenre } from "../types/jikan";
 type AnimeGenresStore = {
   selectedGenre: AnimeGenre | null;
   genres: Record<string, AnimeGenre>;
-  loadGenres: () => Promise<AnimeGenre[]>;
-  getGenres: () => Promise<void>;
+  getGenres: () => Promise<AnimeGenre[]>;
+  loadGenres: () => Promise<void>;
   setSelectedGenre: (genreId: string) => void;
 };
 
@@ -16,7 +16,7 @@ export const useAnimeGenresStore = create<AnimeGenresStore>(
     selectedGenre: null,
     genres: {},
 
-    loadGenres: async () => {
+    getGenres: async () => {
       const storedGenres = await getAnimeGenresFromStorage();
       if (Array.isArray(storedGenres) && storedGenres?.length) {
         return storedGenres;
@@ -27,8 +27,8 @@ export const useAnimeGenresStore = create<AnimeGenresStore>(
 
       return fetchedGenres;
     },
-    getGenres: async () => {
-      const genresArray = await get().loadGenres();
+    loadGenres: async () => {
+      const genresArray = await get().getGenres();
       const genres: Record<string, AnimeGenre> = {};
  
       for (const genre of genresArray) {

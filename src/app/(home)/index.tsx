@@ -1,44 +1,25 @@
 import AnimeListCard from "@/src/components/AnimeListCard";
 import GenreList from "@/src/components/GenreList";
-import { useFetchAnimeGenresStore } from "@/src/state/useAnimeGenresStore";
-import { useFetchAnimeListStore } from "@/src/state/useAnimeStore";
-import { useFavouriteAnimeStore } from "@/src/state/useFavouriteStore";
+import { useAnimeGenresStore } from "@/src/state/useAnimeGenresStore";
+import { useAnimeStore } from "@/src/state/useAnimeStore";
+import { useFavouriteStore } from "@/src/state/useFavouriteStore";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect } from "react";
-import { Text, View } from "react-native";
+import { View } from "react-native";
 
 export default function Index() {
-  const loading = useFetchAnimeListStore((s) => s.loading);
-  const currentPage = useFetchAnimeListStore((s) => s.currentPage);
-  const list = useFetchAnimeListStore((s) => s.list);
-  const error = useFetchAnimeListStore((s) => s.error);
-  const selectedGenre = useFetchAnimeGenresStore((s) => s.selectedGenre);
-  const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
-  const loadFavourites = useFavouriteAnimeStore((s) => s.loadFavourites);
-  const fetchGenres = useFetchAnimeGenresStore((s) => s.fetchGenres);
+  const list = useAnimeStore((s) => s.list);
+  const selectedGenre = useAnimeGenresStore((s) => s.selectedGenre);
+  const fetchNextPage = useAnimeStore((s) => s.fetchNextPage);
+  const loadFavourites = useFavouriteStore((s) => s.loadFavourites);
+  const loadGenres = useAnimeGenresStore((s) => s.loadGenres);
 
   useEffect(() => {
+    loadGenres();
     fetchNextPage();
     loadFavourites();
-    fetchGenres();
   }, []);
 
-  if (loading && !currentPage) {
-    return (
-      <View style={{ flex: 1 }}>
-        <GenreList />
-        <Text>Loading...</Text>
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={{ flex: 1 }}>
-        <Text>Error...</Text>
-      </View>
-    );
-  }
 
   return (
     <View style={{ flex: 1 }}>
