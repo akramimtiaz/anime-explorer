@@ -1,7 +1,7 @@
 import {
+  FetchAnimeByGenreResponse,
   FetchAnimeByIdResponse,
   FetchAnimeGenresResponse,
-  FetchAnimeListResponse,
 } from "../types/jikan";
 import { buildUrl } from "../utils";
 
@@ -10,7 +10,7 @@ const BASE_API_URL = "https://api.jikan.moe/v4";
 export async function fetchAnimesByGenre(
   genreId?: number,
   page: number = 1,
-): Promise<FetchAnimeListResponse> {
+): Promise<FetchAnimeByGenreResponse> {
   const queryParams = {
     page,
     limit: 20,
