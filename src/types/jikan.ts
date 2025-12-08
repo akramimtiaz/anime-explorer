@@ -30,7 +30,7 @@ interface Pagination {
   items: PaginationItems;
 }
 
-export interface FetchAnimeListResponse {
+export interface FetchAnimeByGenreResponse {
   data: FetchAnimeByIdResponse[];
   pagination: Pagination;
 }

@@ -1,5 +1,5 @@
 import Typography from "@/src/components/shared/Typography";
-import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
+import { useFavouriteAnimeStore } from "@/src/state/useFavouriteStore";
 import { Image } from "expo-image";
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
 import { Button, ScrollView } from "react-native";

@@ -1,8 +1,8 @@
 import AnimeListCard from "@/src/components/AnimeListCard";
 import GenreList from "@/src/components/GenreList";
-import { useFavouriteAnimeStore } from "@/src/state/useFavouriteAnime";
-import { useFetchAnimeGenresStore } from "@/src/state/useFetchAnimeGenres";
-import { useFetchAnimeListStore } from "@/src/state/useFetchAnimeList";
+import { useFetchAnimeGenresStore } from "@/src/state/useAnimeGenresStore";
+import { useFetchAnimeListStore } from "@/src/state/useAnimeStore";
+import { useFavouriteAnimeStore } from "@/src/state/useFavouriteStore";
 import { FlashList } from "@shopify/flash-list";
 import { useEffect } from "react";
 import { Text, View } from "react-native";

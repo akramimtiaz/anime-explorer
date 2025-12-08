@@ -1,7 +1,7 @@
 import { FlashList } from "@shopify/flash-list";
 import { Text, View } from "react-native";
 import AnimeListCard from "../components/AnimeListCard";
-import { useFavouriteAnimeStore } from "../state/useFavouriteAnime";
+import { useFavouriteAnimeStore } from "../state/useFavouriteStore";
 
 export default function Favourites() {
   const loading = useFavouriteAnimeStore((s) => s.loading);

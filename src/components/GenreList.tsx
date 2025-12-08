@@ -1,8 +1,8 @@
 import { FlashList } from "@shopify/flash-list";
 import { Pressable } from "react-native";
 import styled from "styled-components/native";
-import { useFetchAnimeGenresStore } from "../state/useFetchAnimeGenres";
-import { useFetchAnimeListStore } from "../state/useFetchAnimeList";
+import { useFetchAnimeGenresStore } from "../state/useAnimeGenresStore";
+import { useFetchAnimeListStore } from "../state/useAnimeStore";
 import { FetchAnimeGenresResponse as Genre } from "../types/jikan";
 import Typography from "./shared/Typography";
 
