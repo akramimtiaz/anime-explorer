@@ -16,6 +16,10 @@ export async function getAnimeGenresFromStorage(): Promise<AnimeGenre[]> {
 
 export async function saveAnimeGenres(genres: AnimeGenre[]) {
   try {
+    if (!Array.isArray(genres) || !genres?.length) {
+      throw new Error('No genres provided');
+    }
+
     await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(genres));
   } catch (err) {
     console.error(`[${STORAGE_KEY}] WRITING TO STORAGE:`, err);

@@ -6,26 +6,36 @@ type AnimeStore = {
   currentPage: number;
   pagination: FetchAnimeByGenreResponse["pagination"] | null;
   list: FetchAnimeByGenreResponse["data"];
-  prevSelectedGenreId?: number;
-  fetchNextPage: (genreId?: number) => Promise<void>;
+  currentGenreId?: number;
+  fetchFirstPage: (genreId?: number) => Promise<void>;
+  fetchNextPage: () => Promise<void>;
 };
 
 export const useAnimeStore = create<AnimeStore>(
   (set, get) => ({
     currentPage: 0,
     pagination: null,
-    prevSelectedGenreId: undefined,
+    currentGenreId: undefined,
     list: [],
 
-    fetchNextPage: async (genreId?: number) => {
+    fetchFirstPage: async (genreId?: number) => {
+      if (get().currentGenreId && get().currentGenreId === genreId) return;
+
+      if (get().currentGenreId !== genreId) {
+        set(() => ({ currentGenreId: genreId }));
+      }
+
+      const response = await fetchAnimesByGenre(1, genreId);
+      set(() => ({
+        currentPage: 1,
+        pagination: response.pagination,
+        list: response.data,
+      }));
+    },
+    fetchNextPage: async () => {
       if (get().pagination?.has_next_page === false) return;
 
-      if (get().prevSelectedGenreId !== genreId) {
-        set(() => ({ currentPage: 0, list: [] }));
-      }
-      set(() => ({ prevSelectedGenreId: genreId }));
-
-      const response = await fetchAnimesByGenre(get().currentPage + 1, genreId);
+      const response = await fetchAnimesByGenre(get().currentPage + 1, get().currentGenreId);
 
       set((state) => ({
         currentPage: state.currentPage + 1,
