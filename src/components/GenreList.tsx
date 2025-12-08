@@ -1,8 +1,8 @@
 import { FlashList } from "@shopify/flash-list";
 import { Pressable } from "react-native";
 import styled from "styled-components/native";
-import { useFetchAnimeGenresStore } from "../state/useAnimeGenresStore";
-import { useFetchAnimeListStore } from "../state/useAnimeStore";
+import { useAnimeGenresStore } from "../state/useAnimeGenresStore";
+import { useAnimeStore } from "../state/useAnimeStore";
 import { FetchAnimeGenresResponse as Genre } from "../types/jikan";
 import Typography from "./shared/Typography";
 
@@ -14,8 +14,8 @@ const NoGenre: Genre = {
 };
 
 function GenreItem({ genre }: { genre: Genre }) {
-  const setSelectedGenre = useFetchAnimeGenresStore((s) => s.setSelectedGenre);
-  const fetchNextPage = useFetchAnimeListStore((s) => s.fetchNextPage);
+  const setSelectedGenre = useAnimeGenresStore((s) => s.setSelectedGenre);
+  const fetchNextPage = useAnimeStore((s) => s.fetchNextPage);
   return (
     <ViewGenreItem>
       <Pressable
@@ -31,22 +31,13 @@ function GenreItem({ genre }: { genre: Genre }) {
 }
 
 export default function GenreList() {
-  const loading = useFetchAnimeGenresStore((s) => s.loading);
-  const genres = useFetchAnimeGenresStore((s) => s.genres);
-  const error = useFetchAnimeGenresStore((s) => s.error);
-
-  if (loading) {
-    return <Typography>Loading...</Typography>;
-  }
-
-  if (error) {
-    return <Typography>Error</Typography>;
-  }
+  const genres = useAnimeGenresStore((s) => s.genres);
+  const list = [NoGenre, ...Object.values(genres)];
 
   return (
     <FlashList
       horizontal
-      data={[NoGenre, ...Object.values(genres)]}
+      data={list}
       renderItem={({ item }) => <GenreItem genre={item} />}
       keyExtractor={(item) => String(item.mal_id)}
       showsHorizontalScrollIndicator={false}
