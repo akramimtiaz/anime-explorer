@@ -3,22 +3,9 @@ import {
   FetchAnimeGenresResponse,
   FetchAnimeListResponse,
 } from "../types/jikan";
+import { buildUrl } from "../utils";
 
-const BASE_URL = "https://api.jikan.moe/v4";
-
-const getUrl = (path: string, queryParams: object = {}) => {
-  let url = BASE_URL.concat(path);
-
-  if (queryParams) {
-    const params = Object.entries(queryParams).map(([key, value]) =>
-      key.concat("=", String(value)),
-    );
-    url = url.concat("?", params.join("&"));
-  }
-
-  console.log(url);
-  return url;
-};
+const BASE_API_URL = "https://api.jikan.moe/v4";
 
 export async function fetchAnimeList(
   page: number = 1,
@@ -34,7 +21,7 @@ export async function fetchAnimeList(
     const queryParams = genreId
       ? { ...baseQueryParams, genres: genreId }
       : baseQueryParams;
-    const url = getUrl("/anime", queryParams);
+    const url = buildUrl(BASE_API_URL, "/anime", queryParams);
 
     const response = await fetch(url);
     const data = await response.json();
@@ -50,7 +37,7 @@ export async function fetchAnimeById(
   id: number,
 ): Promise<FetchAnimeByIdResponse> {
   try {
-    const response = await fetch(getUrl(`/anime/${id}`));
+    const response = await fetch(buildUrl(BASE_API_URL, `/anime/${id}`));
     const data = await response.json();
 
     return data.data;
@@ -62,7 +49,7 @@ export async function fetchAnimeById(
 
 export async function fetchAnimeGenres(): Promise<FetchAnimeGenresResponse[]> {
   try {
-    const response = await fetch(getUrl(`/genres/anime`));
+    const response = await fetch(buildUrl(BASE_API_URL, `/genres/anime`));
     const data = await response.json();
 
     return data.data;
