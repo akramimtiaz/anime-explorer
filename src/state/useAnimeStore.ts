@@ -21,7 +21,7 @@ export const useAnimeStore = create<AnimeStore>((set, get) => ({
 
   fetchFirstPage: async (genreId?: number) => {
     if (get().currentGenreId && get().currentGenreId === genreId) return;
-    set(() => ({ loadingFirstPage: false }));
+    set(() => ({ loadingFirstPage: true }));
 
     try {
       if (get().currentGenreId !== genreId) {
