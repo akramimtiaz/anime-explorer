@@ -11,5 +11,5 @@ export default function Typography({ children, ...props }: TypographyProps) {
 const TextStyled = styled.Text`
   font-family: Montserrat_500Medium;
   size: 16px;
-  color: black;
+  color: ${({ theme }) => theme.colors.primary};
 `;

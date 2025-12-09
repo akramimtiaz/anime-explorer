@@ -3,6 +3,8 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { Tabs } from "expo-router";
 import { StatusBar } from "expo-status-bar";
 import { Fragment } from "react";
+import { ThemeProvider } from "styled-components/native";
+import theme from "../theme";
 
 export default function RootLayout() {
   let [fontsLoaded] = useFonts({
@@ -15,33 +17,35 @@ export default function RootLayout() {
 
   return (
     <Fragment>
-      <StatusBar style="auto" />
-      <Tabs
-        screenOptions={{
-          tabBarInactiveTintColor: "grey",
-          tabBarActiveTintColor: "orange",
-        }}
-      >
-        <Tabs.Screen
-          name="(home)"
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="home" size={size} color={color} />
-            ),
-            headerShown: false,
-            title: "Home",
+      <ThemeProvider theme={theme}>
+        <StatusBar style="auto" />
+        <Tabs
+          screenOptions={{
+            tabBarInactiveTintColor: theme.colors.tertiary,
+            tabBarActiveTintColor: theme.colors.primary,
           }}
-        />
-        <Tabs.Screen
-          name="favourites"
-          options={{
-            tabBarIcon: ({ color, size }) => (
-              <Entypo name="heart" size={size} color={color} />
-            ),
-            title: "Favourites",
-          }}
-        />
-      </Tabs>
+        >
+          <Tabs.Screen
+            name="(home)"
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Entypo name="home" size={size} color={color} />
+              ),
+              headerShown: false,
+              title: "Home",
+            }}
+          />
+          <Tabs.Screen
+            name="favourites"
+            options={{
+              tabBarIcon: ({ color, size }) => (
+                <Entypo name="heart" size={size} color={color} />
+              ),
+              title: "Favourites",
+            }}
+          />
+        </Tabs>
+      </ThemeProvider>
     </Fragment>
   );
 }
