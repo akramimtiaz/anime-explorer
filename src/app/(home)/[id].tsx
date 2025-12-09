@@ -1,15 +1,18 @@
 import Page from "@/src/components/shared/Page";
 import Typography from "@/src/components/shared/Typography";
 import { useFavouriteStore } from "@/src/state/useFavouriteStore";
+import { convertScore } from "@/src/utils";
+import Entypo from '@expo/vector-icons/Entypo';
 import { Image } from "expo-image";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
-import styled from 'styled-components/native';
+import { Dimensions, Pressable, ScrollView, StyleSheet, View } from "react-native";
+import styled, { useTheme } from 'styled-components/native';
 
 const { height: screenHeight } = Dimensions.get('window');
 
 export default function Details() {
+  const theme = useTheme();
   const router = useRouter();
   const favourites = useFavouriteStore(s => s.favourites);
   const toggleFavourite = useFavouriteStore((s) => s.toggleFavourite);
@@ -53,6 +56,30 @@ export default function Details() {
           <Typography style={{ textAlign: "center" }} size="l">
             {anime.title}
           </Typography>
+          <View
+            style={{
+              flexDirection: "row",
+              alignSelf: "center",
+              alignItems: "center",
+              gap: 24,
+            }}
+          >
+            <Pressable onPress={() => toggleFavourite(anime)}>
+              <Entypo
+                name={
+                  favourites.hasOwnProperty(anime.mal_id)
+                    ? "heart"
+                    : "heart-outlined"
+                }
+                size={30}
+                color={theme.colors.primary}
+              />
+            </Pressable>
+            <RatingContainer>
+              <Entypo name="star" size={30} color={theme.colors.primary} />
+              <Typography size="l">{convertScore(anime.score)}</Typography>
+            </RatingContainer>
+          </View>
           <Typography>{anime.synopsis}</Typography>
           <Typography>{anime.score}</Typography>
         </ContentContainer>
@@ -66,4 +93,10 @@ const ContentContainer = styled.View`
   padding-vertical: ${({ theme }) => theme.gap.m};
   padding-horizontal: ${({ theme }) => theme.gap.s};
   gap: ${({ theme }) => theme.gap.s};
+`;
+
+const RatingContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.gap.xs};
 `;
