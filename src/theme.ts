@@ -17,7 +17,7 @@ const fontSizing = {
 
 const colors = {
     primary: '#fe5e00',
-    secondary: '#0000',
+    secondary: '#000000',
     tertiary: '#24252b',
     contentPrimary: '#ffff',
     contentSecondary: '#a2a2a2',

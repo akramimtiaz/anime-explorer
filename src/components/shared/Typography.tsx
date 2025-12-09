@@ -10,6 +10,6 @@ export default function Typography({ children, ...props }: TypographyProps) {
 
 const TextStyled = styled.Text`
   font-family: Montserrat_500Medium;
-  size: 16px;
+  size: ${({ theme }) => theme.font.sizing.m};
   color: ${({ theme }) => theme.colors.primary};
 `;

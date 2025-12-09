@@ -15,13 +15,13 @@ const NoGenre: Genre = {
 
 function GenreItem({ genre }: { genre: Genre }) {
   const setSelectedGenre = useAnimeGenresStore((s) => s.setSelectedGenre);
-  const fetchNextPage = useAnimeStore((s) => s.fetchNextPage);
+  const fetchFirstPage = useAnimeStore((s) => s.fetchFirstPage);
   return (
     <ViewGenreItem>
       <Pressable
         onPress={async () => {
           setSelectedGenre(String(genre.mal_id));
-          await fetchNextPage();
+          await fetchFirstPage(genre.mal_id);
         }}
       >
         <Typography>{genre.name}</Typography>
@@ -50,7 +50,7 @@ const ViewGenreItem = styled.View`
   justify-content: center;
   padding-vertical: 6px;
   padding-horizontal: 12px;
-  background-color: #ffcc98;
+  background-color: ${({ theme }) => theme.colors.tertiary}; 
   margin: 16px;
   border-radius: 8px;
 `;

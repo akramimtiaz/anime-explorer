@@ -21,8 +21,17 @@ export default function RootLayout() {
         <StatusBar style="auto" />
         <Tabs
           screenOptions={{
-            tabBarInactiveTintColor: theme.colors.tertiary,
+            tabBarInactiveTintColor: theme.colors.contentSecondary,
             tabBarActiveTintColor: theme.colors.primary,
+            tabBarStyle: {
+              backgroundColor: theme.colors.tertiary,
+            },
+            headerStyle: {
+              backgroundColor: theme.colors.tertiary,
+            },
+            headerTitleStyle: {
+              color: theme.colors.primary,
+            },
           }}
         >
           <Tabs.Screen

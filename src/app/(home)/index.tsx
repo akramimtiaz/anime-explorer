@@ -1,5 +1,6 @@
 import AnimeList from "@/src/components/AnimeList";
 import GenreList from "@/src/components/GenreList";
+import Page from "@/src/components/shared/Page";
 import Typography from "@/src/components/shared/Typography";
 import { useAnimeGenresStore } from "@/src/state/useAnimeGenresStore";
 import { useAnimeStore } from "@/src/state/useAnimeStore";
@@ -23,7 +24,7 @@ export default function Index() {
   }, []);
 
   return (
-    <View style={{ flex: 1 }}>
+    <Page>
       <GenreList />
       {loadingFirstPage ? (
         <View>
@@ -32,6 +33,6 @@ export default function Index() {
       ) : (
         <AnimeList list={list} fetchNextPage={fetchNextPage} />
       )}
-    </View>
+    </Page>
   );
 }
