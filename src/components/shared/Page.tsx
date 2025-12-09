@@ -6,7 +6,7 @@ export default function Page(props: PropsWithChildren) {
 }
 
 const StyledView = styled.View`
-    flex-direction: column;
-    flex: 1;
-    background: ${({ theme }) => theme.colors.secondary};
+  flex-direction: column;
+  flex: 1;
+  background: ${({ theme }) => theme.colors.secondary};
 `;
