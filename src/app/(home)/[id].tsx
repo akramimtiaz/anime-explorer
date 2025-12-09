@@ -22,6 +22,8 @@ export default function Details() {
     return;
   }
 
+  console.log({ anime: JSON.stringify(anime, null, 2) });
+
   return (
     <Page>
       <ScrollView>

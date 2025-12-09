@@ -5,7 +5,7 @@ import { useCallback } from "react";
 import { Pressable } from "react-native";
 import styled, { useTheme } from "styled-components/native";
 import { FetchAnimeByIdResponse as Anime } from "../types/jikan";
-import { convertRating } from "../utils";
+import { convertScore } from "../utils";
 import Typography from "./shared/Typography";
 
 interface AnimeListCardProps {
@@ -54,7 +54,7 @@ export default function AnimeListCard({ anime }: AnimeListCardProps) {
         <Typography numberOfLines={1}>{anime.title}</Typography>
         <RatingContainer>
           <Entypo name="star" size={12} color={theme.colors.primary} />
-          <Typography>{convertRating(anime.score)}</Typography>
+          <Typography>{convertScore(anime.score)}</Typography>
         </RatingContainer>
       </CardFooter>
     </CardContainer>
