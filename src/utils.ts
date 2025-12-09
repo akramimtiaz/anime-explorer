@@ -12,9 +12,9 @@ export const buildUrl = (baseUrl: string, path: string, queryParams: object = {}
   return url;
 };
 
-export const convertRating = (rating?: number): number | null => {
-  if (!rating) return null;
+export const convertRating = (rating?: number): string | null => {
+  if (!rating || typeof rating !== 'number') return null;
   
   const clamped = Math.min(Math.max(rating, 0), 10);
-  return Math.round(clamped / 2);
+  return (clamped / 2).toFixed(1);
 };

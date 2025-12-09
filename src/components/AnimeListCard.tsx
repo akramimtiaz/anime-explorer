@@ -49,9 +49,9 @@ export default function AnimeListCard({ anime }: AnimeListCardProps) {
           source={anime.images.webp.large_image_url}
           contentFit="cover"
         />
-        <Typography numberOfLines={1}>{anime.title}</Typography>
       </Pressable>
       <CardFooter>
+        <Typography numberOfLines={1}>{anime.title}</Typography>
         <RatingContainer>
           <Entypo name="star" size={12} color={theme.colors.primary} />
           <Typography>{convertRating(anime.score)}</Typography>
@@ -63,12 +63,11 @@ export default function AnimeListCard({ anime }: AnimeListCardProps) {
 
 const CardContainer = styled.View`
   flex-direction: column;
-  gap: 6px;
+  gap: 10px;
   margin: 8px;
 `;
 
 const CardFooter = styled.View`
-  flex-direction: row;
   align-self: stretch;
   justify-content: space-between;
   align-items: center;
