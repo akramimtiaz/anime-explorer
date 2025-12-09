@@ -8,6 +8,7 @@ import { FetchAnimeByIdResponse as Anime } from "../types/jikan";
 
 type FavouriteStore = {
   favourites: Record<string, Anime>;
+  loadingFavourites: boolean;
 
   loadFavourites: () => Promise<void>;
   toggleFavourite: (anime: Anime) => Promise<void>;
@@ -15,10 +16,16 @@ type FavouriteStore = {
 
 export const useFavouriteStore = create<FavouriteStore>((set, get) => ({
   favourites: {},
+  loadingFavourites: false,
 
   loadFavourites: async () => {
-    const favourites = await getFavouritesFromStorage();
-    set(() => ({ favourites }));
+    set(() => ({ loadingFavourites: true }));
+    try {
+      const favourites = await getFavouritesFromStorage();
+      set(() => ({ favourites }));
+    } finally {
+      set(() => ({ loadingFavourites: false }));
+    }
   },
   toggleFavourite: async (anime: Anime) => {
     const exists = get().favourites.hasOwnProperty(anime.mal_id);

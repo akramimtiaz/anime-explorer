@@ -1,9 +1,11 @@
+import Entypo from '@expo/vector-icons/Entypo';
 import { Image } from "expo-image";
 import { useRouter } from "expo-router";
 import { useCallback } from "react";
 import { Pressable } from "react-native";
-import styled from "styled-components/native";
+import styled, { useTheme } from "styled-components/native";
 import { FetchAnimeByIdResponse as Anime } from "../types/jikan";
+import { convertRating } from "../utils";
 import Typography from "./shared/Typography";
 
 interface AnimeListCardProps {
@@ -12,6 +14,7 @@ interface AnimeListCardProps {
 
 export default function AnimeListCard({ anime }: AnimeListCardProps) {
   const router = useRouter();
+  const theme = useTheme();
 
   const goToDetail = useCallback(() => {
     const toStringify: Anime = {
@@ -34,7 +37,7 @@ export default function AnimeListCard({ anime }: AnimeListCardProps) {
   }, [anime, router]);
 
   return (
-    <ItemContainer>
+    <CardContainer>
       <Pressable onPress={goToDetail}>
         <Image
           cachePolicy="memory-disk"
@@ -48,13 +51,31 @@ export default function AnimeListCard({ anime }: AnimeListCardProps) {
         />
         <Typography numberOfLines={1}>{anime.title}</Typography>
       </Pressable>
-      <Typography>{anime.score}</Typography>
-    </ItemContainer>
+      <CardFooter>
+        <RatingContainer>
+          <Entypo name="star" size={12} color={theme.colors.primary} />
+          <Typography>{convertRating(anime.score)}</Typography>
+        </RatingContainer>
+      </CardFooter>
+    </CardContainer>
   );
 }
 
-const ItemContainer = styled.View`
+const CardContainer = styled.View`
   flex-direction: column;
   gap: 6px;
   margin: 8px;
+`;
+
+const CardFooter = styled.View`
+  flex-direction: row;
+  align-self: stretch;
+  justify-content: space-between;
+  align-items: center;
+`;
+
+const RatingContainer = styled.View`
+  flex-direction: row;
+  align-items: center;
+  gap: ${({ theme }) => theme.gap.xs};
 `;
