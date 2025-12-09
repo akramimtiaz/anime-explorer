@@ -7,6 +7,30 @@ This project was undertaken as part of Kasagi Labo's interview process.
 * `npm install`
 * `npm start`
 
+### Progress
+
+| Feature / Requirement | Initial Submission | Current State |
+|------------------------|--------------------|---------------|
+| Fetch data from the Jikan API | ✅ | ✅ |
+| Show a list of anime with image, title, and score | ✅ | ✅ |
+| Implement pagination (infinite scroll or “Load More”) | ✅ | ✅ |
+| Navigate to Anime Detail Screen on tap | ✅ | ✅ |
+| Show synopsis, genres, score, and other info | ☑️ | ☑️ |
+| Allow users to “favorite” an anime | ✅ | ✅ |
+| Store favorites locally (AsyncStorage or MMKV) | ✅ | ✅ |
+| Favorites persist on app reload | ✅ | ✅ |
+| Favorites tab to view saved items | ✅ | ✅ |
+| Add a genre dropdown/filter | ☑️ | ☑️ |
+| Use Jikan API genre filtering or client filtering | ✅ | ✅ |
+| Responsive design for different screen sizes | ❌ | ❌ |
+| Placeholder/loading states | ❌  | ✅ |
+| Handle API errors gracefully | ☑️ | ❌ |
+| Use TypeScript / React Native / React JS (Bonus) | ✅ | ✅ |
+| Add animations (e.g., heart animation) | ❌ | ✅ |
+| Use a state manager (Zustand/Redux/Context) | ✅ | ✅ |
+| Write unit/integration tests | ❌ | ❌ |
+| Implement deep linking or share functionality | ❌ | ❌ |
+
 ### Objective
 
 Build a simplified “Anime Explorer” app that lists anime, lets users view details, mark favorites, and filter by genre. This will evaluate your skills in:
