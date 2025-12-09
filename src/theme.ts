@@ -9,10 +9,9 @@ const gap = {
 const fontSizing = {
     xs: '4px',
     s: '8px',
-    m: '18px',
-    ml: '24px',
-    l: '32px',
-    xl: '48px',
+    m: '16px',
+    ml: '20px',
+    l: '28px',
 };
 
 const colors = {

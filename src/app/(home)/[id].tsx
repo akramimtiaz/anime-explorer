@@ -4,7 +4,8 @@ import { useFavouriteStore } from "@/src/state/useFavouriteStore";
 import { Image } from "expo-image";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
-import { Button, Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import { Dimensions, ScrollView, StyleSheet, View } from "react-native";
+import styled from 'styled-components/native';
 
 const { height: screenHeight } = Dimensions.get('window');
 
@@ -40,25 +41,27 @@ export default function Details() {
             contentFit="cover"
           />
           <LinearGradient
-            colors={["rgba(0, 0, 0, 0.75)", "transparent"]}
+            colors={["rgba(0, 0, 0, 0.75)", "transparent", "transparent"]}
             style={StyleSheet.absoluteFill}
             start={{ x: 0, y: 1 }} // start at bottom
             end={{ x: 0, y: 0 }} // end at top
           />
         </View>
-        <Typography>{anime.title}</Typography>
-        <Typography>{anime.synopsis}</Typography>
-        <Typography>{anime.score}</Typography>
-        <Button
-          title={
-            favourites.hasOwnProperty(anime.mal_id)
-              ? "Remove from Favourites"
-              : "Add to Favourites"
-          }
-          onPress={() => toggleFavourite(anime)}
-          color="blue"
-        />
+        <ContentContainer>
+          <Typography style={{ textAlign: "center" }} size="l">
+            {anime.title}
+          </Typography>
+          <Typography>{anime.synopsis}</Typography>
+          <Typography>{anime.score}</Typography>
+        </ContentContainer>
       </ScrollView>
     </Page>
   );
 }
+
+const ContentContainer = styled.View`
+  flex-direction: column;
+  padding-vertical: ${({ theme }) => theme.gap.m};
+  padding-horizontal: ${({ theme }) => theme.gap.s};
+  gap: ${({ theme }) => theme.gap.s};
+`;
