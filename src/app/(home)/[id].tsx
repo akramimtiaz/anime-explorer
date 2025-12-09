@@ -6,6 +6,8 @@ import Entypo from '@expo/vector-icons/Entypo';
 import { Image } from "expo-image";
 import { LinearGradient } from 'expo-linear-gradient';
 import { Stack, useLocalSearchParams, useRouter } from "expo-router";
+import { MotiView } from 'moti';
+import { useState } from "react";
 import { Dimensions, Pressable, ScrollView, StyleSheet, View } from "react-native";
 import styled, { useTheme } from 'styled-components/native';
 
@@ -16,6 +18,8 @@ export default function Details() {
   const router = useRouter();
   const favourites = useFavouriteStore(s => s.favourites);
   const toggleFavourite = useFavouriteStore((s) => s.toggleFavourite);
+  const [pressed, setPressed] = useState(false);
+
   const { animeJson } = useLocalSearchParams();
 
   const anime = JSON.parse(animeJson as string);
@@ -64,16 +68,30 @@ export default function Details() {
               gap: 24,
             }}
           >
-            <Pressable onPress={() => toggleFavourite(anime)}>
-              <Entypo
-                name={
-                  favourites.hasOwnProperty(anime.mal_id)
-                    ? "heart"
-                    : "heart-outlined"
-                }
-                size={30}
-                color={theme.colors.primary}
-              />
+            <Pressable
+              onPressIn={() => setPressed(true)}
+              onPress={() => toggleFavourite(anime)}
+              onPressOut={() => setPressed(false)}
+            >
+              <MotiView
+                animate={{
+                  scale: pressed ? 1.2 : 1,
+                }}
+                transition={{
+                  type: 'spring',
+                  damping: 40,
+                }}
+              >
+                <Entypo
+                  name={
+                    favourites.hasOwnProperty(anime.mal_id)
+                      ? "heart"
+                      : "heart-outlined"
+                  }
+                  size={30}
+                  color={theme.colors.primary}
+                />
+              </MotiView>
             </Pressable>
             <RatingContainer>
               <Entypo name="star" size={30} color={theme.colors.primary} />
@@ -81,7 +99,6 @@ export default function Details() {
             </RatingContainer>
           </View>
           <Typography>{anime.synopsis}</Typography>
-          <Typography>{anime.score}</Typography>
         </ContentContainer>
       </ScrollView>
     </Page>
@@ -92,7 +109,7 @@ const ContentContainer = styled.View`
   flex-direction: column;
   padding-vertical: ${({ theme }) => theme.gap.m};
   padding-horizontal: ${({ theme }) => theme.gap.s};
-  gap: ${({ theme }) => theme.gap.s};
+  gap: ${({ theme }) => theme.gap.m};
 `;
 
 const RatingContainer = styled.View`
