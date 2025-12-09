@@ -1,12 +1,11 @@
 import AnimeList from "@/src/components/AnimeList";
 import GenreList from "@/src/components/GenreList";
+import LoadingAnimeList from "@/src/components/LoadingAnimeList";
 import Page from "@/src/components/shared/Page";
-import Typography from "@/src/components/shared/Typography";
 import { useAnimeGenresStore } from "@/src/state/useAnimeGenresStore";
 import { useAnimeStore } from "@/src/state/useAnimeStore";
 import { useFavouriteStore } from "@/src/state/useFavouriteStore";
 import { useEffect } from "react";
-import { View } from "react-native";
 
 export default function Index() {
   const loadFavourites = useFavouriteStore((s) => s.loadFavourites);
@@ -27,10 +26,8 @@ export default function Index() {
     <Page>
       <GenreList />
       {loadingFirstPage ? (
-        <View>
-          <Typography>Loading...</Typography>
-        </View>
-      ) : (
+        <LoadingAnimeList />
+    ) : (
         <AnimeList list={list} fetchNextPage={fetchNextPage} />
       )}
     </Page>
