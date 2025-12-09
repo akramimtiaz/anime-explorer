@@ -1,50 +1,64 @@
-# Welcome to your Expo app 👋
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+# 🌐 Frontend Development Challenge 
+This project was undertaken as part of Kasagi Labo's interview process.
 
-## Get started
+### How to run project
 
-1. Install dependencies
+* `npm install`
+* `npm start`
 
-   ```bash
-   npm install
-   ```
+### Objective
 
-2. Start the app
+Build a simplified “Anime Explorer” app that lists anime, lets users view details, mark favorites, and filter by genre. This will evaluate your skills in:
 
-   ```bash
-   npx expo start
-   ```
+* Frontend architecture
+* Navigation
+* API consumption
+* State management
+* Component design
+* Basic animations or interactions
 
-In the output, you'll find options to open the app in a
+### Requirements
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+1. Anime List Screen
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+    * Fetch data from the [Jikan API](https://docs.api.jikan.moe/#tag/anime) (e.g., https://api.jikan.moe/v4/anime).
+    * Show a list of anime with image, title, and score.
+    * Implement pagination (infinite scroll or “Load More”).
 
-## Get a fresh project
+2. Anime Detail Screen
 
-When you're ready, run:
+    * When a user taps an anime, navigate to a detail screen.
+    * Show synopsis, genres, score, and other relevant info.
 
-```bash
-npm run reset-project
-```
+3. Favorites Feature
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
+    * Allow users to “favorite” an anime.
+    * Store favorites locally (using AsyncStorage or MMKV).
+    * Favorites persist on app reload.
+    * Optional: Provide a Favorites tab to view saved items.
 
-## Learn more
+4. Filter by Genre
 
-To learn more about developing your project with Expo, look at the following resources:
+    * Add a dropdown/filter component to filter anime by genre.
+    * Use the Jikan API genre filtering if possible, or do client-side filtering.
 
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
+5. Basic Styling and UX
 
-## Join the community
+    * Responsive design for different screen sizes.
+    * Use placeholder/loading UI states.
+    * Handle API errors gracefully.
 
-Join our community of developers creating universal apps.
+### Bonus Points (Optional)
+* Use TypeScript / React Native / React JS.
+* Add animations (e.g., favoriting with a heart animation).
+* Use a state manager (Zustand, Redux Toolkit, or React Context).
+* Write basic unit tests (Jest) or integration tests (React Native Testing Library).
+* Implement deep linking or share functionality.
+* Code-splitting and performance optimization.
 
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+### Tools You Can Use
+* React Navigation
+* Axios or Fetch
+* React Native Reanimated or LayoutAnimation (for animations)
+* Any component library or styling approach (Tailwind, Styled Components, etc.)
